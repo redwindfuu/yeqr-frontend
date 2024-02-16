@@ -18,6 +18,7 @@ export const AccountPopover = (props) => {
     [onClose, auth, router]
   );
 
+  console.log(auth.user)
   return (
     <Popover
       anchorEl={anchorEl}
@@ -42,7 +43,7 @@ export const AccountPopover = (props) => {
           color="text.secondary"
           variant="body2"
         >
-          Anika Visser
+          {auth.user.name}
         </Typography>
       </Box>
       <Divider />
