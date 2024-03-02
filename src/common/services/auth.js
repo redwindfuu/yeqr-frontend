@@ -1,4 +1,5 @@
 import { publicAxiosClient } from "src/common/utils/axios/public-axios";
+import { authAxiosClient } from "../utils/axios/auth-axios";
 
 
 export const AuthService = {
@@ -8,12 +9,11 @@ export const AuthService = {
       username,
       password
     })
-
     return result;
   },
 
   signOut: async () => {
-    // Here you should make a request to your API
-    // to sign out the user
+    return await authAxiosClient.post('/auth/logout', {})
   }
+
 }

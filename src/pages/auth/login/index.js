@@ -12,7 +12,7 @@ import NextLink from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import { AuthService } from 'src/common/services';
+import { AuthService } from '@services';
 import { Layout as AuthLayout } from 'src/layouts/auth/layout';
 import { logIn } from 'src/libs/redux/slices/user.slice';
 import * as Yup from 'yup';

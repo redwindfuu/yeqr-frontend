@@ -31,13 +31,13 @@ export const setupAuthAxiosClient = (store) => {
           withCredentials: true,
         }
       );
-      if (refreshLoginResp?.data?.success) {
-        const { user, access, refresh } = refreshLoginResp?.data;
+      if (refreshLoginResp?.data) {
+        const { access, refresh } = refreshLoginResp?.data;
         store.dispatch(
           logIn({
             access,
             refresh,
-            user,
+            
           })
         );
         processFailedQueue(token);
