@@ -1,22 +1,21 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import Head from 'next/head';
-import { subDays, subHours } from 'date-fns';
-import Modal from '@mui/material/Modal';
 import ArrowDownOnSquareIcon from '@heroicons/react/24/solid/ArrowDownOnSquareIcon';
 import ArrowUpOnSquareIcon from '@heroicons/react/24/solid/ArrowUpOnSquareIcon';
 import PlusIcon from '@heroicons/react/24/solid/PlusIcon';
 import { Box, Button, Container, Stack, SvgIcon, Typography } from '@mui/material';
-import { useSelection } from 'src/hooks/use-selection';
+import Modal from '@mui/material/Modal';
+import Head from 'next/head';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useSelection } from 'src/common/hooks/use-selection';
+import { UserService } from 'src/common/services';
+import { applyPagination } from 'src/common/utils/apply-pagination';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
-import { UsersTable } from 'src/sections/user/users-table';
 import { UsersSearch } from 'src/sections/user/users-search';
-import { applyPagination } from 'src/utils/apply-pagination';
-import { UserService } from 'src/services';
+import { UsersTable } from 'src/sections/user/users-table';
 
 const now = new Date();
 
 
-const useUsers = (page, rowsPerPage , data) => {
+const useUsers = (page, rowsPerPage, data) => {
   return useMemo(
     () => {
       return applyPagination(data, page, rowsPerPage);
@@ -36,21 +35,31 @@ const useUserIds = (users) => {
 
 const Page = () => {
   const [page, setPage] = useState(0);
-  const [open , setOpen] = useState(false);
-  const [data , setData] = useState([])
+  const [open, setOpen] = useState(false);
+  const [data, setData] = useState([])
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const users = useUsers(page, rowsPerPage , data);
+  const users = useUsers(page, rowsPerPage, data);
   const usersIds = useUserIds(users);
   const usersSelection = useSelection(usersIds);
 
-  useEffect(()=> {
+  useEffect(() => {
     const fetchUser = async () => {
-      return await UserService.getList();
+      try {
+        const result = await UserService.getList();
+        if (result?.data) {
+          setData(result.data)
+          return result.data
+        }
+
+      } catch (e) {
+        console.log(e);
+      }
+       
     }
 
-    const data =  fetchUser()
+    const data = fetchUser()
     console.log(data);
-  },[ page, rowsPerPage]);
+  }, [page, rowsPerPage]);
 
   const handlePageChange = useCallback(
     (event, value) => {
@@ -66,7 +75,7 @@ const Page = () => {
     []
   );
 
-  
+
 
 
   return (
@@ -154,32 +163,32 @@ const Page = () => {
       </Box>
       <Modal
         open={open}
-        onClose={()=>setOpen(false)}
+        onClose={() => setOpen(false)}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box 
+        <Box
           sx={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              width: 400,
-              bgcolor: 'background.paper',
-              border: '2px solid #000',
-              boxShadow: 24,
-              p: 4,
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: 400,
+            bgcolor: 'background.paper',
+            border: '2px solid #000',
+            boxShadow: 24,
+            p: 4,
           }}
         >
-          <Typography 
-            id="modal-modal-title" 
-            variant="h6" 
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
             component="h2"
           >
             Text in a modal
           </Typography>
-          <Typography 
-            id="modal-modal-description" 
+          <Typography
+            id="modal-modal-description"
             sx={{ mt: 2 }}
           >
             Duis mollis, est non commodo luctus, nisi erat porttitor ligula.

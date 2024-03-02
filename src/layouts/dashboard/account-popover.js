@@ -1,24 +1,26 @@
-import { useCallback } from 'react';
+import { Box, Divider, MenuItem, MenuList, Popover, Typography } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import PropTypes from 'prop-types';
-import { Box, Divider, MenuItem, MenuList, Popover, Typography } from '@mui/material';
-import { useAuth } from 'src/hooks/use-auth';
+import { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useAuth } from 'src/common/hooks/use-auth';
+import { logOut } from 'src/libs/redux/slices/user.slice';
 
 export const AccountPopover = (props) => {
   const { anchorEl, onClose, open } = props;
   const router = useRouter();
   const auth = useAuth();
-
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.auth.user);
   const handleSignOut = useCallback(
     () => {
       onClose?.();
-      auth.signOut();
+      dispatch(logOut());
       router.push('/auth/login');
     },
     [onClose, auth, router]
   );
 
-  console.log(auth.user)
   return (
     <Popover
       anchorEl={anchorEl}
@@ -43,7 +45,7 @@ export const AccountPopover = (props) => {
           color="text.secondary"
           variant="body2"
         >
-          {auth.user.name}
+          {user.name}
         </Typography>
       </Box>
       <Divider />

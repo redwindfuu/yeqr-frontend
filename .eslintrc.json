@@ -9,6 +9,7 @@
       {
         "maximum": 1
       }
-    ]
+    ],
+    "no-unused-vars": "off"
   }
 }

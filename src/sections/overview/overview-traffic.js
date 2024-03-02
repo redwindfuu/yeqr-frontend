@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import ComputerDesktopIcon from '@heroicons/react/24/solid/ComputerDesktopIcon';
 import DeviceTabletIcon from '@heroicons/react/24/solid/DeviceTabletIcon';
 import PhoneIcon from '@heroicons/react/24/solid/PhoneIcon';
@@ -12,7 +11,8 @@ import {
   Typography,
   useTheme
 } from '@mui/material';
-import { Chart } from 'src/components/chart';
+import PropTypes from 'prop-types';
+import { Chart } from 'src/common/components/chart';
 
 const useChartOptions = (labels) => {
   const theme = useTheme();

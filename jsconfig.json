@@ -1,5 +1,15 @@
 {
   "compilerOptions": {
-    "baseUrl": "."
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@components/*": ["src/common/components/*"],
+      "@utils/*": ["src/common/utils/*"],
+      "@common/*": ["src/common/*"],
+      "@assets/*": ["src/assets/*"],
+      "@libs/*": ["src/libs/*"],
+      "@services/*": ["src/common/services/*"],
+    }
   }
+  // path aliases
 }

@@ -1,5 +1,10 @@
+const path = require('path');
+
 module.exports = {
   reactStrictMode: true,
+  sassOptions: {
+    includePaths: [path.join(__dirname, 'styles')],
+  },
   async redirects() {
     return [
       {
@@ -8,5 +13,10 @@ module.exports = {
         permanent: true,
       },
     ]
+  },
+  // absolute path
+  webpack: (config) => {
+    config.resolve.modules.push(path.resolve('./'));
+    return config;
   },
 };

@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-import { format } from 'date-fns';
 import {
   Avatar,
   Box,
@@ -14,8 +12,10 @@ import {
   TableRow,
   Typography
 } from '@mui/material';
-import { Scrollbar } from 'src/components/scrollbar';
-import { getInitials } from 'src/utils/get-initials';
+import { format } from 'date-fns';
+import PropTypes from 'prop-types';
+import { Scrollbar } from 'src/common/components/scrollbar';
+import { getInitials } from 'src/common/utils/get-initials';
 
 export const UsersTable = (props) => {
   const {
@@ -23,7 +23,7 @@ export const UsersTable = (props) => {
     items = [],
     onDeselectAll,
     onDeselectOne,
-    onPageChange = () => {},
+    onPageChange = () => { },
     onRowsPerPageChange,
     onSelectAll,
     onSelectOne,

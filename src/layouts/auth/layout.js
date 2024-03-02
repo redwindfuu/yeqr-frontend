@@ -1,12 +1,23 @@
-import PropTypes from 'prop-types';
+import { Box, Unstable_Grid2 as Grid, Typography } from '@mui/material';
 import NextLink from 'next/link';
-import { Box, Typography, Unstable_Grid2 as Grid } from '@mui/material';
-import { Logo } from 'src/components/logo';
+import { useRouter } from 'next/navigation';
+import PropTypes from 'prop-types';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { Logo } from 'src/common/components/logo';
 
 // TODO: Change subtitle text
 
 export const Layout = (props) => {
   const { children } = props;
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  const router = useRouter()
+  useEffect(() => {
+    console.log("isLoggedIn", isLoggedIn);
+    if (isLoggedIn) {
+      router.push('/');
+    }
+  }, []);
 
   return (
     <Box

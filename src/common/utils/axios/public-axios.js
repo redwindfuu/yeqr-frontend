@@ -10,10 +10,6 @@ const axiosClient = axios.create({
 });
 
 axiosClient.interceptors.response.use(
-  (config) => {
-    config.headers.Authorization = `Bearer ${JSON.parse(window.sessionStorage.getItem('user-data')).access}`;
-    return config;
-  },
   (response) => {
     if (response && response.data) {
       return response.data;
@@ -36,7 +32,8 @@ const publicAxiosClient = axios.create({
 
 publicAxiosClient.interceptors.response.use(
   (response) => {
-    if (response && response.data) {
+    console.log(response);
+    if (response?.data) {
       return response.data;
     }
     return response;
@@ -48,3 +45,4 @@ publicAxiosClient.interceptors.response.use(
 
 
 export { axiosClient, publicAxiosClient };
+

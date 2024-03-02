@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import ArrowPathIcon from '@heroicons/react/24/solid/ArrowPathIcon';
 import ArrowRightIcon from '@heroicons/react/24/solid/ArrowRightIcon';
 import {
@@ -11,7 +10,8 @@ import {
   SvgIcon
 } from '@mui/material';
 import { alpha, useTheme } from '@mui/material/styles';
-import { Chart } from 'src/components/chart';
+import PropTypes from 'prop-types';
+import { Chart } from 'src/common/components/chart';
 
 const useChartOptions = () => {
   const theme = useTheme();

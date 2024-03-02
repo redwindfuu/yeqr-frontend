@@ -1,6 +1,6 @@
-import { createContext, useContext, useEffect, useReducer, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { AuthService } from 'src/services';
+import { createContext, useContext, useEffect, useReducer, useRef } from 'react';
+import { AuthService } from 'src/common/services';
 
 const HANDLERS = {
   INITIALIZE: 'INITIALIZE',
@@ -26,7 +26,7 @@ const handlers = {
             isAuthenticated: true,
             isLoading: false,
             user: action?.payload?.user,
-            token : action?.payload?.access
+            token: action?.payload?.access
           })
           : ({
             isLoading: false
@@ -39,8 +39,8 @@ const handlers = {
     return {
       ...state,
       isAuthenticated: true,
-      user : action?.payload?.user,
-      token : action?.payload?.access
+      user: action?.payload?.user,
+      token: action?.payload?.access
     };
   },
   [HANDLERS.SIGN_OUT]: (state) => {

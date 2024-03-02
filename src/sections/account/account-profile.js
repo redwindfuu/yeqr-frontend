@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import {
   Avatar,
   Box,
@@ -9,8 +10,8 @@ import {
   Typography
 } from '@mui/material';
 
+const avatar = '/assets/avatars/avatar-anika-visser.png';
 const user = {
-  avatar: '/assets/avatars/avatar-anika-visser.png',
   city: 'Los Angeles',
   country: 'USA',
   jobTitle: 'Senior Developer',
@@ -18,8 +19,9 @@ const user = {
   timezone: 'GTM-7'
 };
 
-export const AccountProfile = () => (
-  <Card>
+export const AccountProfile = () => {
+  const user = useSelector((state) => state.user?.auth?.user );
+  return (<Card>
     <CardContent>
       <Box
         sx={{
@@ -29,7 +31,7 @@ export const AccountProfile = () => (
         }}
       >
         <Avatar
-          src={user.avatar}
+          src={avatar}
           sx={{
             height: 80,
             mb: 2,
@@ -40,19 +42,19 @@ export const AccountProfile = () => (
           gutterBottom
           variant="h5"
         >
-          {user.name}
+          {user?.name}
         </Typography>
         <Typography
           color="text.secondary"
           variant="body2"
         >
-          {user.city} {user.country}
+          {user?.city} {user?.country}
         </Typography>
         <Typography
           color="text.secondary"
           variant="body2"
         >
-          {user.timezone}
+          {"GTM+7"}
         </Typography>
       </Box>
     </CardContent>
@@ -65,5 +67,5 @@ export const AccountProfile = () => (
         Upload picture
       </Button>
     </CardActions>
-  </Card>
-);
+  </Card>)
+}

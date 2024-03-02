@@ -1,32 +1,31 @@
-import { useCallback, useState } from 'react';
-import Head from 'next/head';
-import NextLink from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
 import {
-  Alert,
   Box,
   Button,
-  FormHelperText,
   Link,
   Stack,
-  Tab,
-  Tabs,
   TextField,
   Typography
 } from '@mui/material';
-import { useAuth } from 'src/hooks/use-auth';
+import { useFormik } from 'formik';
+import Head from 'next/head';
+import NextLink from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { AuthService } from 'src/common/services';
 import { Layout as AuthLayout } from 'src/layouts/auth/layout';
+import { logIn } from 'src/libs/redux/slices/user.slice';
+import * as Yup from 'yup';
 
 const Page = () => {
   //init 
   const router = useRouter();
-  const auth = useAuth();
+  const dispatch = useDispatch();
+  const { t } = useTranslation();
   const formik = useFormik({
     initialValues: {
-      username: 'demo@devias.io',
-      password: 'Password123!',
+      username: 'admin',
+      password: 'admin123',
       submit: null
     },
     validationSchema: Yup.object({
@@ -41,9 +40,17 @@ const Page = () => {
     }),
     onSubmit: async (values, helpers) => {
       try {
-        console.log(values);
-        await auth.signIn(values.username, values.password);
-        router.push('/');
+        const result = await AuthService.signIn(values.username, values.password);
+        if (result?.data) {
+          const { data } = result;
+          helpers.setStatus({ success: true });
+          dispatch(logIn({
+            access: data.access,
+            refresh: data.refresh,
+            user: data.user
+          }))
+          router.push('/');
+        }
       } catch (err) {
         helpers.setStatus({ success: false });
         helpers.setErrors({ submit: err.message });
@@ -85,7 +92,7 @@ const Page = () => {
               sx={{ mb: 3 }}
             >
               <Typography variant="h4">
-                Login
+                {t('AUTH.LOGIN')}
               </Typography>
               <Typography
                 color="text.secondary"
@@ -106,7 +113,7 @@ const Page = () => {
             <Stack
               spacing={2}
             >
-            <form
+              <form
                 noValidate
                 onSubmit={formik.handleSubmit}
               >

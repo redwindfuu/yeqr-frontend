@@ -1,0 +1,27 @@
+{
+  "GENERAL": {
+    "APP_NAME": "YELL QR Code Scanner"
+  },
+  "AUTH": {
+    "LOGIN": "Đăng nhập",
+    "LOGOUT": "Đăng xuất",
+    "REGISTER": "Đăng ký",
+    "EMAIL": "Email",
+    "PASSWORD": "Mật khẩu",
+    "CONFIRM_PASSWORD": "Xác nhận mật khẩu",
+    "FORGOT_PASSWORD": "Quên mật khẩu",
+    "RESET_PASSWORD": "Reset mật khẩu",
+    "SEND_RESET_LINK": "Gửi Reset Link",
+    "REMEMBER_ME": "Remember Me",
+    "NAME": "Name",
+    "ALREADY_REGISTERED": "Already Registered?",
+    "NOT_REGISTERED": "Not Registered?",
+    "REGISTER_NOW": "Register Now",
+    "LOGIN_NOW": "Login Now",
+    "RESET_PASSWORD_LINK": "Reset Password Link",
+    "RESET_PASSWORD_LINK_SENT": "Reset Password Link Sent",
+    "RESET_PASSWORD_LINK_SENT_MESSAGE": "We have e-mailed your password reset link!",
+    "RESET_PASSWORD_LINK_NOT_SENT": "Reset Password Link Not Sent",
+    "RESET_PASSWORD_LINK_NOT_SENT_MESSAGE": "We can't find a user with that e-mail address."
+  }
+}

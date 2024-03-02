@@ -1,11 +1,14 @@
-import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
-import { useAuthContext } from 'src/contexts/auth-context';
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useAuthContext } from 'src/common/contexts/auth-context';
 
 export const AuthGuard = (props) => {
   const { children } = props;
   const router = useRouter();
+  const dispatch = useDispatch();
+  const { isLoggedIn } = useSelector((state) => state?.user);
   const { isAuthenticated } = useAuthContext();
   const ignore = useRef(false);
   const [checked, setChecked] = useState(false);
@@ -27,7 +30,7 @@ export const AuthGuard = (props) => {
 
       ignore.current = true;
 
-      if (!isAuthenticated) {
+      if (!isLoggedIn) {
         console.log('Not authenticated, redirecting');
         router
           .replace({
@@ -39,7 +42,7 @@ export const AuthGuard = (props) => {
         setChecked(true);
       }
     },
-    [router.isReady]
+    [isAuthenticated, router, router.isReady]
   );
 
   if (!checked) {
