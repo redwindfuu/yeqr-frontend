@@ -1,3 +1,4 @@
+import { DATE_FORMAT } from '@/common/constants/format-date';
 import {
   Avatar,
   Box,
@@ -12,12 +13,14 @@ import {
   TableRow,
   Typography
 } from '@mui/material';
-import { format } from 'date-fns';
+import moment from 'moment';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import { Scrollbar } from 'src/common/components/scrollbar';
 import { getInitials } from 'src/common/utils/get-initials';
 
 export const UsersTable = (props) => {
+  const { t } = useTranslation();
   const {
     count = 0,
     items = [],
@@ -56,31 +59,30 @@ export const UsersTable = (props) => {
                   />
                 </TableCell>
                 <TableCell>
-                  Name
+                  {t('USER.TABLE.NAME')}
                 </TableCell>
                 <TableCell>
-                  Email
+                  {t('USER.TABLE.EMAIL')}
                 </TableCell>
                 <TableCell>
-                  Location
+                  {t('USER.TABLE.ADDRESS')}
                 </TableCell>
                 <TableCell>
-                  Phone
+                  {t('USER.TABLE.PHONE')}
                 </TableCell>
                 <TableCell>
-                  Signed Up
+                  {t('USER.TABLE.BIRTH')}
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {items.map((customer) => {
-                const isSelected = selected.includes(customer.id);
-                const createdAt = format(customer.createdAt, 'dd/MM/yyyy');
-
+                const isSelected = selected.includes(customer?.id);
+                const birth = moment(customer?.birth).format(DATE_FORMAT);
                 return (
                   <TableRow
                     hover
-                    key={customer.id}
+                    key={customer?.id}
                     selected={isSelected}
                   >
                     <TableCell padding="checkbox">
@@ -88,9 +90,9 @@ export const UsersTable = (props) => {
                         checked={isSelected}
                         onChange={(event) => {
                           if (event.target.checked) {
-                            onSelectOne?.(customer.id);
+                            onSelectOne?.(customer?.id);
                           } else {
-                            onDeselectOne?.(customer.id);
+                            onDeselectOne?.(customer?.id);
                           }
                         }}
                       />
@@ -101,25 +103,25 @@ export const UsersTable = (props) => {
                         direction="row"
                         spacing={2}
                       >
-                        <Avatar src={customer.avatar}>
-                          {getInitials(customer.name)}
+                        <Avatar src={customer?.avatar}>
+                          {getInitials(customer?.name)}
                         </Avatar>
                         <Typography variant="subtitle2">
-                          {customer.name}
+                          {customer?.name}
                         </Typography>
                       </Stack>
                     </TableCell>
                     <TableCell>
-                      {customer.email}
+                      {customer?.email}
                     </TableCell>
                     <TableCell>
-                      {customer.address.city}, {customer.address.state}, {customer.address.country}
+                      {customer?.address}
                     </TableCell>
                     <TableCell>
-                      {customer.phone}
+                      {customer?.phone}
                     </TableCell>
                     <TableCell>
-                      {createdAt}
+                      {birth}
                     </TableCell>
                   </TableRow>
                 );

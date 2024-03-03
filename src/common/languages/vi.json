@@ -23,5 +23,26 @@
     "RESET_PASSWORD_LINK_SENT_MESSAGE": "We have e-mailed your password reset link!",
     "RESET_PASSWORD_LINK_NOT_SENT": "Reset Password Link Not Sent",
     "RESET_PASSWORD_LINK_NOT_SENT_MESSAGE": "We can't find a user with that e-mail address."
+  },
+  "USER": {
+    "TABLE": {
+      "NAME": "Họ Tên",
+      "BIRTH": "Ngày sinh",
+      "EMAIL": "Email",
+      "PHONE": "Số điện thoại",
+      "ADDRESS": "Địa chỉ"
+    },
+    "SEARCH": "Tìm kiếm người dùng",
+    "ADD": {
+      "TITLE": "Thêm người dùng",
+      "NAME": "Họ Tên",
+      "BIRTH": "Ngày sinh",
+      "EMAIL": "Email",
+      "PHONE": "Số điện thoại",
+      "ADDRESS": "Địa chỉ",
+      "PASSWORD": "Mật khẩu",
+      "CONFIRM_PASSWORD": "Xác nhận mật khẩu",
+      "SUBMIT": "Thêm"
+    }
   }
 }

@@ -7,7 +7,7 @@ let isRefreshing = false;
 
 export const setupAuthAxiosClient = (store) => {
   authAxiosClient = axios.create({
-    baseURL: process.env.REACT_APP_API_URL,
+    baseURL: process.env.NEXT_PUBLIC_API_URL,
     headers: {
       "content-type": "application/json",
     },
@@ -26,7 +26,7 @@ export const setupAuthAxiosClient = (store) => {
     isRefreshing = true;
     try {
       const refreshLoginResp = await authAxiosClient.post(
-        `${process.env.REACT_APP_API_URL}/auth/refresh`,
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/refresh`,
         {
           withCredentials: true,
         }
@@ -37,7 +37,6 @@ export const setupAuthAxiosClient = (store) => {
           logIn({
             access,
             refresh,
-            
           })
         );
         processFailedQueue(token);
@@ -54,6 +53,7 @@ export const setupAuthAxiosClient = (store) => {
   authAxiosClient.interceptors.request.use(
     (config) => {
       if (!config.headers["Authorization"]) {
+        console.log(store);
         const accessToken = store?.getState()?.user?.auth?.user?.access;
         config.headers["Authorization"] = `Bearer ${accessToken}`;
       }

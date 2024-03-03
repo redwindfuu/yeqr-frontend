@@ -9,7 +9,8 @@
       "@assets/*": ["src/assets/*"],
       "@libs/*": ["src/libs/*"],
       "@services/*": ["src/common/services/*"],
-      "@services": ["src/common/services"]
+      "@services": ["src/common/services"],
+      "@styles/*": ["src/styles/*"],
     }
   }
   // path aliases

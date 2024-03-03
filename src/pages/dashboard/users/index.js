@@ -1,79 +1,30 @@
+import { AddUserContent } from '@/sections/user/add-user-content';
+import { useUserHook } from '@/sections/user/user-hook';
 import ArrowDownOnSquareIcon from '@heroicons/react/24/solid/ArrowDownOnSquareIcon';
 import ArrowUpOnSquareIcon from '@heroicons/react/24/solid/ArrowUpOnSquareIcon';
 import PlusIcon from '@heroicons/react/24/solid/PlusIcon';
 import { Box, Button, Container, Stack, SvgIcon, Typography } from '@mui/material';
 import Modal from '@mui/material/Modal';
+import { t } from 'i18next';
 import Head from 'next/head';
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useSelection } from 'src/common/hooks/use-selection';
-import { UserService } from 'src/common/services';
-import { applyPagination } from 'src/common/utils/apply-pagination';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
 import { UsersSearch } from 'src/sections/user/users-search';
 import { UsersTable } from 'src/sections/user/users-table';
 
-const now = new Date();
-
-
-const useUsers = (page, rowsPerPage, data) => {
-  return useMemo(
-    () => {
-      return applyPagination(data, page, rowsPerPage);
-    },
-    [page, rowsPerPage, data]
-  );
-};
-
-const useUserIds = (users) => {
-  return useMemo(
-    () => {
-      return users.map((user) => user.id);
-    },
-    [users]
-  );
-};
-
 const Page = () => {
-  const [page, setPage] = useState(0);
-  const [open, setOpen] = useState(false);
-  const [data, setData] = useState([])
-  const [rowsPerPage, setRowsPerPage] = useState(5);
-  const users = useUsers(page, rowsPerPage, data);
-  const usersIds = useUserIds(users);
-  const usersSelection = useSelection(usersIds);
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const result = await UserService.getList();
-        if (result?.data) {
-          setData(result.data)
-          return result.data
-        }
-
-      } catch (e) {
-        console.log(e);
-      }
-       
-    }
-
-    const data = fetchUser()
-    console.log(data);
-  }, [page, rowsPerPage]);
-
-  const handlePageChange = useCallback(
-    (event, value) => {
-      setPage(value);
-    },
-    []
-  );
-
-  const handleRowsPerPageChange = useCallback(
-    (event) => {
-      setRowsPerPage(event.target.value);
-    },
-    []
-  );
+  const {
+    page,
+    rowsPerPage,
+    users,
+    usersSelection,
+    handlePageChange,
+    handleRowsPerPageChange,
+    open,
+    setOpen,
+    data,
+    search,
+    setSearch
+  } = useUserHook()
 
 
 
@@ -144,7 +95,10 @@ const Page = () => {
                 </Button>
               </div>
             </Stack>
-            <UsersSearch />
+            <UsersSearch
+              search={search}
+              setSearch={setSearch}
+            />
             <UsersTable
               count={data.length}
               items={users}
@@ -185,13 +139,13 @@ const Page = () => {
             variant="h6"
             component="h2"
           >
-            Text in a modal
+            {t('USER.ADD.TITLE')}
           </Typography>
           <Typography
             id="modal-modal-description"
-            sx={{ mt: 2 }}
+            sx={{ mt: 2 , p: 1 , display: 'inline-block'}}
           >
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+            <AddUserContent />
           </Typography>
         </Box>
       </Modal>
